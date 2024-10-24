@@ -1,0 +1,45 @@
+/*
+En proyectos más grandes,
+dividir tu código SASS en archivos parciales facilita la organización. Los parciales son archivos que empiezan con _ (por ejemplo, _variables.scss) y no se compilan directamente a CSS. Usamos @import para combinarlos en un archivo principal.
+
+/scss
+  |_ _variables.scss
+  |_ _mixins.scss
+  |_ main.scss
+ */
+
+// Variables
+
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$font-stack: Arial, Helvetica, sans-serif;
+
+// _mixins.scss
+
+@mixin box($width, $height) {
+    width: $width;
+    height: $height;
+    display: flex;
+    alignt-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+}
+
+// main.scss
+
+@import "variables";
+@import "mixins";
+
+body {
+    background-color: $primary-color;
+    font-family: $font-stack;
+}
+
+.container {
+    @include box(150px, 50px);
+    background-color: #f5f5f5;
+}
+
+
+/* Modularización: El archivo main.scss importa las variables y los mixins,
+manteniendo los archivos organizados. Esto te permite manejar proyectos grandes dividiendo los estilos en partes reutilizables. */

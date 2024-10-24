@@ -1,0 +1,339 @@
+// Variables
+
+$primary-color: #007bff; // variable global
+$font-stack: Arial, Helvetica, sans-serif;
+$spacing: 16px;
+
+body {
+    background-color: $primary-color;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    color: darken($primary-color, 15%);
+}
+
+// Variables globales y locales
+
+
+$primary-color: #3498db; // Variable global
+
+.container {
+    $secondary-color: #2ecc71; // Variable local solo dentro de .container
+    background-color: $secondary-color;
+}
+
+h1 {
+    color: $primary-color; // Sigue usando la variable global
+}
+
+// Variables con numeros
+
+$base-spacing: 16px;
+$double-spacing: $base-spacing * 2;
+
+// Variables con colores
+
+$primary-color: #3498db;
+$darker-color: darken($primary-color, 10%);
+
+// Variables con Strings
+
+$font-family: "Helvetica, Arial, sans-serif";
+
+body {
+    font-family: $font-family;
+}
+
+// Variables con listas
+
+$font-sizes: 12px, 14px, 16px, 18px;
+h1 {
+    font-size: nth($font-sizes, 3); // usa la tercera variable de la lista
+}
+
+// Variables usando mapas
+
+$theme-colors: (
+    "primary": #3498db,
+    "secondary": #2ecc71,
+    "tertiary": #e74c3c
+);
+
+button {
+    background-color: map-get($theme-colors, "primary");
+}
+
+// Variables con Booleanos, para usar en condicionales
+
+$is-dark-theme: true;
+
+body {
+    @if $is-dark-theme {
+        background-color: #333;
+        color: white;
+    } @else {
+        background-color: white;
+        color: black;
+    }
+}
+
+
+/* Buenas prácticas en el uso de variables Organización lógica de variables: Agrupar las variables según su propósito es una buena práctica. Puedes organizar variables para colores,
+tipografía,
+espaciado,
+etc.,
+lo que facilita la mantenibilidad y escalabilidad de los estilos. */
+
+// variables/_colors.scss
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$danger-color: #e74c3c;
+
+// variables/_typography.scss
+$font-size-base: 16px;
+$font-family-base: "Arial, sans-serif";
+
+// Luego, en tu archivo principal, importa las variables y usalas
+// @import "variables/colors";
+// @import "variables/typography";
+
+body {
+    background-color: $primary-color;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+}
+
+
+
+
+
+
+
+// ---------------------------------------------------------------------------------
+
+
+// Nesting(anidacion de selectores)
+
+/* Anidación de selectores CSS La anidación de selectores permite escribir el código CSS de una forma más concisa y clara, evitando la repetición innecesaria de selectores. En lugar de escribir selectores completos repetidamente,
+puedes anidarlos dentro del selector principal. */
+
+nav {
+    background-color: #333;
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: inline-block;
+
+            a {
+                text-decoration: none;
+                color: white;
+
+                &:hover {
+                    color: #3498db;
+                }
+            }
+        }
+    }
+}
+
+// Resultado en css
+
+nav {
+    background-color: #333;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+nav ul li a:hover {
+    color: #3498db;
+}
+
+
+// Anidación de propiedades CSS
+
+button {
+    font: {
+        family: "Arial, sans-serif";
+        size: 16px;
+        weight: bold;
+    }
+
+    margin: {
+        top: 10px;
+        bottom: 20px;
+    }
+}
+
+// Resultado en CSS
+
+button {
+    font-family: "Arial, sans-serif";
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+// ---------------------------------------------------------------------------------
+
+// Partials y @import en SCSS
+
+/* El uso de partiales y la directiva @import son fundamentales en SCSS para modularizar y organizar de manera eficiente los estilos en proyectos grandes. Vamos a explorar cómo crear y usar archivos parciales, cómo organizar el código y la transición a @use y @forward en la versión moderna de SASS. */
+
+// Creando un archivo parcial
+
+// variables/_colors.scss
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$danger-color: #e74c3c;
+
+// variables/_typography.scss
+$font-size-base: 16px;
+$font-family-base: "Arial, sans-serif";
+
+// Luego, en tu archivo principal, importa las variables y usalas
+// @import "variables/colors";
+// @import "variables/typography";
+
+body {
+    background-color: $primary-color;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+}
+
+/scss |_ _variables.scss // Variables globales
+|_ _mixins.scss // Mixins
+|_ _base.scss // Estilos generales
+|_ _buttons.scss // Componente de botones
+|_ _layout.scss // Estructura de diseño
+|_ main.scss // Archivo principal que importa todos los parciales
+
+// Migración de @import a @use y @forward (SASS moderno)
+
+//1 _variables.scss
+//$primary-color: #3498db;
+//$secondary-color: #2ecc71;
+
+//2 En el archivo principal
+// main.scss
+// @use 'variables';
+
+// Ejemplo de @forward:
+
+// _colors.scss
+//$primary-color: #3498db;
+//$secondary-color: #2ecc71;
+
+//@forward 'colors';
+
+// Luego,puedes usar @use para importar y utilizar los valores expuestos:
+
+// main.scss
+/* @use 'colors';
+
+button {
+    background-color: colors.$primary-color;
+} */
+
+
+body {
+    background-color: variables.$primary-color;
+}
+
+// ---------------------------------------------------------------------------------
+
+
+
+// Anidacion de selectores
+
+nav {
+    background-color: #333;
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+
+                li {
+                    display: inline-block;
+
+                    a {
+                        text-decoration: none;
+                        color: white;
+                        padding: $spacing;
+
+                        &:hover {
+                            background-color: lighten(#333, 10%);
+                        }
+                    }
+                }
+            
+            }
+        }
+
+// Mixins
+
+// creando un mixin para el diseño de caja
+@Mixin box($width, $height) {
+    width: $width;
+    height: $height;
+    display: flex;
+    alignt-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+}
+
+// usando el mixin
+.container {
+    @include box(150px, 50px);
+    background-color: #f5f5f5;
+}
+
+.button {
+    @include box(150px, 50px);
+    background-color: #3498db;
+    color: white;
+}
+
+// Extend y herencia
+
+// Estilo base
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #3498db;
+}
+
+// heredando el estilo base
+.btn-primary {
+    @extend .btn;
+    background-color: #2ecc71;
+}
+
+.btn-danger {
+    @extend .btn;
+    background-color: #e74c3c;
+}
+
+//Etructura modular usando parciales y @import
+
