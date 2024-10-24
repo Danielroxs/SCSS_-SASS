@@ -402,6 +402,132 @@ $colores: red, green, blue;
 
 // ---------------------------------------------------------------------------------
 
+// Control de Flujo: Condicionales y Bucles en Sass
+
+/* En Sass,
+al igual que en muchos lenguajes de programación,
+puedes usar control de flujo para escribir código CSS de manera más eficiente. Esto incluye condicionales y bucles,
+que permiten generar estilos de manera dinámica y repetitiva. */
+
+@mixin tamañoTexto($tamaño) {
+    @if $tamaño == 'grande' {
+        font-size: 20px;
+    } @else if $tamaño == 'mediano' {
+        font-size: 16px;
+    } @else {
+        font-size: 12px;
+    }
+}
+
+.texto {
+    @include tamañoTexto('grande');
+}
+
+// Bucles FOR en Sass
+
+@for $i from 1 through 5 {
+    .columna-#{$i} {
+        width: 20% *$i;
+    }
+}
+
+// Resultado en CSS
+
+.columna-1 {
+    width: 20%;
+}
+
+.columna-2 {
+    width: 40%;
+}
+
+.columna-3 {
+    width: 60%;
+}
+
+.columna-4 {
+    width: 80%;
+}
+
+.columna-5 {
+    width: 100%;
+}
+
+// Bucle @each en Sass
+
+$colores: rojo, verde, azul;
+
+@each $color in $colores {
+    .boton-#{$color} {
+        background-color: $color
+    }
+}
+
+// Resultado en CSS
+
+.boton-rojo {
+    background-color: rojo;
+}
+
+.boton-verde {
+    background-color: verde;
+}
+
+.boton-azul {
+    background-color: azul;
+}
+
+// Bucle WHILE en Sass
+
+$i:1;
+
+@while $i < 4 {
+    .caja-#{$i} {
+        width: 100px * $i;
+    }
+    $i: $i + 1;
+}
+
+// Resultado en CSS
+
+.caja-1 {
+    width: 100px;
+}
+
+.caja-2 {
+    width: 200px;
+}
+
+.caja-3 {
+    width: 300px;
+}
+
+// Generacion dinamica de clases y reglas CSS
+
+$ancho-contenedores: 100px, 200px, 300px;
+
+@each $ancho in $ancho-contenedores {
+    .contenedor-#{$ancho} {
+        width: $ancho;
+    }
+}
+
+// Resultado en CSS
+
+.contenedor-100px {
+    width: 100px;
+}
+
+.contenedor-200px {
+    width: 200px;
+}
+
+.contenedor-300px {
+    width: 300px;
+}
+
+// ---------------------------------------------------------------------------------
+
 
 
 // Anidacion de selectores
