@@ -260,6 +260,73 @@ body {
 
 // ---------------------------------------------------------------------------------
 
+// Mixins
+@mixin centrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caja {
+    @include centrado;
+    width: 100px;
+    height: 100px;
+    background-color: red; 
+}
+
+// Mixins con parámetros
+
+@mixin bordes($ancho, $color) {
+    border: $ancho solid $color;
+}
+
+.boton {
+    @include bordes(2px, blue);
+}
+
+.contenedor {
+    @include bordes(4px, green);
+}
+
+// Uso de @include para reutilizar estilos
+@mixin sombra($sombra) {
+    box-shadow: $sombra;
+}
+
+.card {
+    @include sombra(0px 4px 5px rgba(0, 0, 0, 0.3));
+}
+
+// Mixins condicionales
+@mixin tamañoFuente($size) {
+    @if $size == 'grande' {
+        font-size: 20px;
+    } @else if $size == 'mediano' {
+        font-size: 16px;
+    } @else {
+        font-size: 12px;
+    }
+}
+
+.texto {
+    @include tamañoFuente('grande');
+}
+
+// ---------------------------------------------------------------------------------
+
+// Funciones
+@function doble($valor) {
+    @return $valor * 2;
+}
+
+.caja {
+    width: doble(10px); // devuelve 20px
+}
+
+/* Diferencia clave: Mixins generan bloques completos de CSS que se pueden incluir en diferentes selectores. Funciones devuelven valores individuales que se pueden usar dentro de las reglas CSS. */
+
+// ---------------------------------------------------------------------------------
+
 
 
 // Anidacion de selectores
