@@ -325,6 +325,81 @@ body {
 
 /* Diferencia clave: Mixins generan bloques completos de CSS que se pueden incluir en diferentes selectores. Funciones devuelven valores individuales que se pueden usar dentro de las reglas CSS. */
 
+@function multiplicar($valor, $factor) {
+    @return $valor * $factor;
+}
+
+.caja {
+    width: multiplicar(10px, 2); // devuelve 20px
+}
+
+/* Funciones matemáticas: abs(): Devuelve el valor absoluto. min() y max(): Devuelve el mínimo o máximo valor de una lista de números. percentage(): Convierte un valor en una fracción a un porcentaje. */
+
+.caja {
+    width: percentage(0.5); // devuelve 50%
+}
+
+/* Funciones de color: lighten(): Aclara un color. darken(): Oscurece un color. adjust-hue(): Ajusta el tono de un color. */
+
+.boton {
+    background-color: lighten(#3498db, 20%); // aclara el color un 20%
+}
+
+/* Funciones de color: lighten(): Aclara un color. darken(): Oscurece un color. adjust-hue(): Ajusta el tono de un color. */
+
+$colores: red, green, blue;
+
+.color {
+    background-color: nth($colores, 2); // Devuelve green
+}
+
+// Funcion personalizada
+
+@function calcular-espacio($ancho-contenedor, $elementos) {
+    @return $ancho-contenedor / $elementos;
+}
+
+.lista {
+    width: calcular-espacio(1000px, 4 ); // Cada elemento ocupa 25% del ancho del contenedor
+}
+
+// ---------------------------------------------------------------------------------
+
+// Extends y Placeholder Selectors en Sass
+
+/* Uso de @extend para heredar estilos La directiva @extend en Sass se utiliza para compartir estilos entre selectores, permitiendo que uno herede las reglas de otro sin necesidad de duplicar código. Cuando un selector extiende a otro, Sass combina ambos selectores en el CSS final. */
+
+.boton {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.boton-verde {
+    @extend .boton;
+    background-color: green;
+}
+
+.boton-rojo {
+    @extend .boton;
+    background-color: red;
+}
+
+// Placeholder Selectors
+%boton-base {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.boton-verde {
+    @extend %boton-base;
+    background-color: green;
+}
+
+.boton-rojo {
+    @extend %boton-base;
+    background-color: red;
+}
+
 // ---------------------------------------------------------------------------------
 
 
