@@ -528,6 +528,317 @@ $ancho-contenedores: 100px, 200px, 300px;
 
 // ---------------------------------------------------------------------------------
 
+// Mapas y Listas en Sass
+
+/* 9. Mapas y Listas en Sass En Sass,
+listas y mapas son tipos de datos útiles para manejar colecciones de valores y pares de clave-valor,
+respectivamente. Ambas estructuras permiten organizar y manipular datos de forma eficiente,
+facilitando la generación dinámica de estilos en CSS. Uso de listas en Sass Las listas en Sass son colecciones de valores ordenados,
+que puedes usar para almacenar múltiples valores en una sola variable. Los elementos de una lista están separados por comas o espacios. */
+
+//@each
+$colores: red, green,blue;
+
+@each $color in $colores {
+    .texto-#{$color} {
+        color: $color;
+    }
+}
+
+// Resultado en CSS
+
+.texto-red {
+    color: red;
+}
+
+.texto-green {
+    color: green;
+}
+
+.texto-blue {
+    color: blue;
+}
+
+// Mapas en Sass
+
+$colores: (
+    primary: blue,
+    secondary: green,
+    accent: red
+);
+
+// Puedes acceder a los valores de un mapa usando la función map-get($map, $key).
+
+.boton-primario {
+    background-color: map-get($colores, primary);
+}
+
+// Resultado en CSS
+
+.boton-primario {
+    background-color: blue;
+}
+
+/* Métodos y funciones para manipular listas y mapas en Sass 
+Funciones para listas: 
+
+length($list): Devuelve el número de elementos en una lista. 
+nth($list, $n): Devuelve el enésimo elemento de la lista (índice 1). 
+join($list1, $list2, $separator): Une dos listas. 
+append($list, $value, $separator): Añade un valor al final de una lista. 
+index($list, $value): Devuelve el índice de un valor en la lista. */
+
+$colores: red, green, blue;
+$nuevoColor: yellow;
+
+/* .paleta {
+    color1: nth($colores, 1); // devuelve red
+    colores-total: length($colores); // devuelve 3
+    colores-actualizados: join($colores, $nuevoColor, ', '); // devuelve red, green, blue, yellow
+} */
+
+// Funciones para mapas
+
+//map-get($map, $key): Devuelve el valor asociado a una clave en un mapa.
+//map-has-key($map, $key): Devuelve true si la clave existe en el mapa, false en caso contrario.
+//map-keys($map): Devuelve una lista de claves del mapa.
+//map-values($map): Devuelve una lista de valores del mapa.
+//map-merge($map1, $map2): Combina dos mapas.
+//map-remove($map, $key): Elimina una clave del mapa.
+
+$colores: (
+    primary: blue,
+    secondary: green,
+);
+
+// Agregar un nuevo valor al mapa
+$colores-actualizado: map-merge($colores, (accent: red));
+
+// Acceder a una clave específica
+.boton {
+    background-color: map-get($colores-actualizado, accent); // devuelve red
+}
+
+// Resultado en CSS
+
+.boton {
+    background-color: red;
+}
+
+// ---------------------------------------------------------------------------------
+
+// @use y @forward en Sass (Sass moderno)
+
+/* Reemplazo de @import por @use para evitar la sobrecarga global La directiva @import solía incluir todos los estilos de un archivo en el ámbito global, lo que podría causar conflictos de nombres y problemas de rendimiento. Con @use, cada módulo se carga solo una vez y sus variables, mixins y funciones no están en el ámbito global por defecto. */
+
+// archivo _variables.scss
+$primario: blue;
+$secundario: green;
+
+// archivo main.scss
+@use 'variables';
+
+.boton {
+    color: variables.$primario;
+}
+
+//@forward
+
+// archivo _variables.scss
+$primario: blue;
+$secundario: green;
+
+// archivo _base.scss
+@forward 'variables';
+
+// archivo main.scss
+@use 'base';
+
+.boton {
+    color: base.$primario;
+}
+
+// Control de acceso a variables y mixins con @use (aliasing)
+
+/* El aliasing permite renombrar un módulo al importarlo,
+usando @use con el operador as, lo cual es útil cuando se trabaja con múltiples módulos que pueden tener nombres similares o largos. */
+
+// archivo _colores.scss
+$primario: blue;
+
+// archivo main.scss
+@use 'colores' as c;
+
+.boton {
+    color: c.$primario; // Utiliza el alias 'c' para acceder a $primario
+}
+
+// Control de acceso a variables y mixins con @use (aliasing)
+
+// archivo _variables.scss
+$primario: blue;
+$secundario: green;
+
+// archivo _base.scss
+@forward 'variables' show $primario; // Solo expone $primario
+
+// archivo main.scss
+@use 'base';
+
+.boton {
+    color: base.$primario; // Acceso permitido
+    // color: base.$secundario; // Esto generará un error
+}
+
+// ---------------------------------------------------------------------------------
+
+// Funciones Predefinidas en Sass
+
+/* Sass incluye un conjunto de funciones predefinidas que simplifican la manipulación de colores,
+números y cadenas de texto. Estas funciones permiten realizar operaciones avanzadas directamente en Sass,
+haciendo el código más dinámico y manteniendo la consistencia de estilos en toda la hoja de estilos. */
+
+// Funciones de color
+
+// darken($color, $amount):
+
+// Oscurece un color en un porcentaje específico.
+// Ejemplo: darken(#3498db, 20%) devuelve un tono más oscuro de azul.
+// lighten($color, $amount):
+
+// Aclara un color en un porcentaje específico.
+// Ejemplo: lighten(#3498db, 20%) devuelve un tono más claro de azul.
+// mix($color1, $color2, $weight):
+
+// Mezcla dos colores con un peso específico.
+// Ejemplo: mix(red, blue, 50%) mezcla rojo y azul a partes iguales.
+// adjust-hue($color, $degrees):
+
+// Cambia el tono de un color en un número de grados específicos.
+// Ejemplo: adjust-hue(#3498db, 45deg) ajusta el tono de azul en 45 grados.
+// saturate($color, $amount) y desaturate($color, $amount):
+
+// Aumenta o reduce la saturación de un color.
+// Ejemplo: saturate(#3498db, 20%) incrementa la saturación.
+// rgba($color, $alpha):
+
+// Agrega un nivel de transparencia a un color.
+// Ejemplo: rgba(#3498db, 0.5) genera un color azul semitransparente.
+
+// Funciones matemáticas y de manipulación
+
+// math.div($numerator, $denominator):
+
+// Divide dos números. En Sass moderno, se recomienda math.div en lugar de / para evitar ambigüedades.
+// Ejemplo: math.div(10px, 2) devuelve 5px.
+// math.ceil($number) y math.floor($number):
+
+// ceil redondea el número al entero superior, mientras que floor redondea al entero inferior.
+// Ejemplo: math.ceil(4.2) devuelve 5, y math.floor(4.8) devuelve 4.
+// math.round($number):
+
+// Redondea un número al entero más cercano.
+// Ejemplo: math.round(4.5) devuelve 5.
+// percentage($number):
+
+// Convierte un número en fracción a un porcentaje.
+// Ejemplo: percentage(0.5) devuelve 50%.
+
+// Funciones de Cadena
+
+// quote($string) y unquote($string):
+
+// quote rodea una cadena con comillas; unquote elimina las comillas de una cadena.
+// Ejemplo: quote(hello) devuelve "hello", y unquote("hello") devuelve hello.
+// str-length($string):
+
+// Devuelve el número de caracteres en una cadena.
+// Ejemplo: str-length("hello") devuelve 5.
+// str-insert($string, $insert, $index):
+
+// Inserta una subcadena en una posición específica de la cadena original.
+// Ejemplo: str-insert("hello", " world", 6) devuelve "hello world".
+// str-slice($string, $start-at, $end-at):
+
+// Corta una subcadena desde una posición inicial hasta una posición final.
+// Ejemplo: str-slice("hello", 1, 3) devuelve "hel".
+// to-upper-case($string) y to-lower-case($string):
+
+// Convierte una cadena a mayúsculas o minúsculas.
+// Ejemplo: to-upper-case("hello") devuelve "HELLO".
+
+// ---------------------------------------------------------------------------------
+
+// Modularizacion y Arquitectura en Sass
+
+/* Para proyectos grandes,
+es común organizar el código en una estructura de carpetas para mantener una separación lógica y facilitar el mantenimiento. Una estructura típica incluye: */
+
+// base/:
+
+// Contiene estilos globales y resets, como normalize.css o estilos básicos (_reset.scss, _typography.scss).
+// components/:
+
+// Archivos que representan componentes reutilizables (_button.scss, _card.scss).
+// layout/:
+
+// Define la estructura general del sitio, como la cuadrícula (_grid.scss), encabezados, pies de página y contenedores // (_header.scss, _footer.scss).
+// themes/:
+
+// Archivos de configuración para temas, si el proyecto soporta varios (_dark-theme.scss, _light-theme.scss).
+// utils/ o abstracts/:
+
+// Funciones, mixins, variables y mapas (_variables.scss, _mixins.scss).
+// main.scss:
+
+// Archivo principal que importa todos los módulos. Este archivo se compila en el archivo CSS final.
+
+
+/* sass/
+├── base/
+│   ├── _reset.scss
+│   └── _typography.scss
+├── components/
+│   ├── _button.scss
+│   └── _card.scss
+├── layout/
+│   ├── _grid.scss
+│   ├── _header.scss
+│   └── _footer.scss
+├── themes/
+│   ├── _dark-theme.scss
+│   └── _light-theme.scss
+├── utils/
+│   ├── _variables.scss
+│   ├── _mixins.scss
+│   └── _functions.scss
+└── main.scss
+ */
+
+// BEM en Sass
+
+.button {
+    &__icon {
+        margin-right: 5px;
+    }
+
+    &--primary {
+        background-color: blue;
+    }
+}
+
+// Resultado en CSS
+
+.button__icon {
+    margin-right: 5px;
+}
+
+.button--primary {
+    background-color: blue;
+}
+
+// ---------------------------------------------------------------------------------
+
 
 
 // Anidacion de selectores
