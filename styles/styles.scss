@@ -838,6 +838,70 @@ es común organizar el código en una estructura de carpetas para mantener una s
 }
 
 // ---------------------------------------------------------------------------------
+// Compilar y minificar CSS con Dart Sass
+
+/* Dart Sass es un compilador de Sass que se ejecuta en el navegador, lo que permite compilar y minificar CSS en tiempo de ejecución. Dart Sass es una alternativa a otros compiladores de Sass, como LibSass y Node Sass, y es compatible con Sass moderno. Dart Sass se ejecuta en el navegador y no requiere instalación en el sistema. Además, Dart Sass es muy rápido y eficiente, lo que lo hace ideal para proyectos de alto rendimiento. */
+
+// Instalación
+
+// 1. Instalar Dart Sass en tu sistema
+// 2. Agregar Dart Sass a tu proyecto
+// 3. Compilar y minificar tus archivos Sass
+
+// Agregar Dart Sass a tu proyecto
+
+/* Para agregar Dart Sass a tu proyecto, debes instalarlo en tu sistema y configurarlo en tu archivo de configuración Sass. Puedes hacerlo de varias maneras, como instalarlo globalmente o localmente, configurarlo para usarlo con una herramienta específica, o configurarlo para usarlo con un compilador específico. Aquí te mostramos cómo configurar Dart Sass para usarlo con Gulp. */
+
+// Instalación global
+
+npm install -g dart-sass
+
+// Instalación local
+
+npm install --save-dev dart-sass
+
+// Configuración en Gulp
+
+/* const sass = require('gulp-sass')(require('sass'));
+
+gulp.task('sass', function () {
+    return gulp.src('src/styles/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('dist/css'));
+}); */
+
+// ---------------------------------------------------------------------------------
+
+// Compilacion eficiente de SASS(evitar duplicacion de código)
+%boton-base {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.boton-primario {
+    @extend %boton-base;
+    background-color: blue;
+}
+
+.boton-secundario {
+    @extend %boton-base;
+    background-color: green;
+}
+
+// ---------------------------------------------------------------------------------
+
+// Herramientas de Post-Procesado CSS (PostCSS, Autoprefixer)
+
+// Configuracion basica de PostCSS con Autoprefixer en un archivo postcss.config.js
+/* module.exports = {
+    plugins: [
+        require('autoprefixer')
+    ]
+}; */
+
+/* Ejecutar npx postcss output.css --use autoprefixer -o final.css aplicará los prefijos necesarios y generará el archivo final.css. */
+
+// ---------------------------------------------------------------------------------
 
 
 
